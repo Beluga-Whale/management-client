@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
 .login-bg {
-  @apply h-screen bg-gradient-to-r from-purple-50 via-purple-200  to-purple-50;
+  @apply bg-gradient-to-r from-purple-50 via-purple-200  to-purple-50;
+}
+
+.login-container {
+  @apply max-w-lg w-full mx-auto;
 }

@@ -1,4 +1,4 @@
-import { HTMLInputTypeAttribute, useMemo } from "react";
+import { HTMLInputTypeAttribute } from "react";
 import {
   FormControl,
   FormDescription,
@@ -11,7 +11,7 @@ import { Input } from "./ui/input";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 type FormInputFieldProps<T extends FieldValues> = {
-  control: UseFormReturn<T>["control"]; // ✅ ส่งเฉพาะ `control`
+  control: UseFormReturn<T>["control"];
   name: Path<T>;
   label: string;
   type?: HTMLInputTypeAttribute;
@@ -29,7 +29,7 @@ const FormInputField = <T extends FieldValues>({
 }: FormInputFieldProps<T>) => {
   return (
     <FormField
-      control={control} // ✅ ใช้เฉพาะ `control`
+      control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
@@ -38,7 +38,7 @@ const FormInputField = <T extends FieldValues>({
             <Input placeholder={placeholder} type={type} {...field} />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage />
+          <FormMessage className="text-red-500" />
         </FormItem>
       )}
     />

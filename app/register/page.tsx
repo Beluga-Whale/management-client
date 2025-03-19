@@ -15,13 +15,15 @@ import Link from "next/link";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email format. Please enter a valid email."),
-  password: z.string().min(1, { message: "password is required." }),
+  name: z.string().min(1, { message: "Name is required." }),
+  password: z.string().min(1, { message: "Password is required." }),
 });
-const LoginPage = () => {
+const RegisterPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
+      name: "",
       password: "",
     },
   });
@@ -34,16 +36,15 @@ const LoginPage = () => {
       <Card className="login-container bg-slate-50">
         <CardHeader>
           <CardTitle className="text-center text-xl">
-            Login to Your Account
+            Register for an Account
           </CardTitle>
           <CardDescription className="text-center text-slate-500 ">
-            Login Now. Don't have an account?{" "}
+            Create an account. Already have an account?{" "}
             <span>
-              <Link href="/register" className="text-violet-500 font-bold">
-                Register
+              <Link href="/" className="text-violet-500 font-bold">
+                Login here
               </Link>
-            </span>{" "}
-            here
+            </span>
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -60,13 +61,20 @@ const LoginPage = () => {
               />
               <FormInputField
                 control={form.control}
+                name="name"
+                label="Name"
+                type="text"
+                placeholder="you name"
+              />
+              <FormInputField
+                control={form.control}
                 name="password"
                 label="Password"
                 type="password"
                 placeholder="*******"
               />
               <Button type="submit" variant={"default"} className="w-full">
-                Login
+                Register
               </Button>
             </form>
           </FormProvider>
@@ -75,4 +83,4 @@ const LoginPage = () => {
     </main>
   );
 };
-export default LoginPage;
+export default RegisterPage;
