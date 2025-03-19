@@ -1,3 +1,8 @@
-// import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "./api/authApi";
 
-// const apiUrl: string = process.env.NEXT_PUBLIC_PORT;
+export const useLogin = () => {
+  return useMutation({
+    mutationFn: login,
+  });
+};

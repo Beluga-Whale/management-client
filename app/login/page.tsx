@@ -12,12 +12,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import { useLogin } from "@/services/authServices";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email format. Please enter a valid email."),
   password: z.string().min(1, { message: "password is required." }),
 });
 const LoginPage = () => {
+  const { mutate: loginMutate, error } = useLogin();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,8 +30,10 @@ const LoginPage = () => {
   });
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log("values", values);
+    loginMutate(values);
   };
+
+  console.log("error", error);
   return (
     <main className="login-bg flex justify-center items-center min-h-screen ">
       <Card className="login-container bg-slate-50">
