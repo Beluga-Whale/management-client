@@ -13,13 +13,14 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { useLogin } from "@/services/authServices";
+import axios from "axios";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email format. Please enter a valid email."),
   password: z.string().min(1, { message: "password is required." }),
 });
 const LoginPage = () => {
-  const { mutate: loginMutate, error } = useLogin();
+  const { mutate: loginMutate, error, isError } = useLogin();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,6 +35,7 @@ const LoginPage = () => {
   };
 
   console.log("error", error);
+  console.log("isError", isError);
   return (
     <main className="login-bg flex justify-center items-center min-h-screen ">
       <Card className="login-container bg-slate-50">
@@ -70,6 +72,11 @@ const LoginPage = () => {
                 type="password"
                 placeholder="*******"
               />
+              {isError && axios.isAxiosError(error) && (
+                <p className="text-red-500 text-sm ">
+                  {error?.response?.data?.error}
+                </p>
+              )}
               <Button type="submit" variant={"default"} className="w-full">
                 Login
               </Button>
