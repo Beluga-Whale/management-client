@@ -12,6 +12,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import { useRegister } from "@/services/authServices";
+import { ToastContainer, toast } from "react-toastify";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
+// import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email format. Please enter a valid email."),
@@ -19,6 +26,9 @@ const formSchema = z.object({
   password: z.string().min(1, { message: "Password is required." }),
 });
 const RegisterPage = () => {
+  const { mutateAsync: registerMutate, error, isError } = useRegister();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,8 +38,21 @@ const RegisterPage = () => {
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log("values", values);
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await registerMutate(values).then((res) => {
+        Swal.fire({
+          title: res?.message,
+          icon: "success",
+        }).then((res) => {
+          if (res.isConfirmed) {
+            router.push("/login");
+          }
+        });
+      });
+    } catch (error) {
+      console.error("Error submit : ", error);
+    }
   };
   return (
     <main className="login-bg flex justify-center items-center min-h-screen ">
@@ -73,6 +96,11 @@ const RegisterPage = () => {
                 type="password"
                 placeholder="*******"
               />
+              {isError && axios.isAxiosError(error) && (
+                <p className="text-red-500 text-sm ">
+                  {error?.response?.data?.error}
+                </p>
+              )}
               <Button type="submit" variant={"default"} className="w-full">
                 Register
               </Button>
@@ -80,6 +108,7 @@ const RegisterPage = () => {
           </FormProvider>
         </CardContent>
       </Card>
+      <ToastContainer />
     </main>
   );
 };

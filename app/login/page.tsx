@@ -14,13 +14,15 @@ import {
 import Link from "next/link";
 import { useLogin } from "@/services/authServices";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email format. Please enter a valid email."),
   password: z.string().min(1, { message: "password is required." }),
 });
 const LoginPage = () => {
-  const { mutate: loginMutate, error, isError } = useLogin();
+  const router = useRouter();
+  const { mutateAsync: loginMutate, error, isError } = useLogin();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -30,12 +32,16 @@ const LoginPage = () => {
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    loginMutate(values);
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await loginMutate(values).then(() => {
+        router.push("/tasks");
+      });
+    } catch (err) {
+      console.error("Error:", err);
+    }
   };
 
-  console.log("error", error);
-  console.log("isError", isError);
   return (
     <main className="login-bg flex justify-center items-center min-h-screen ">
       <Card className="login-container bg-slate-50">
