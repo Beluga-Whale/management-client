@@ -13,12 +13,9 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { useRegister } from "@/services/authServices";
-import { ToastContainer, toast } from "react-toastify";
-import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
-// import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email format. Please enter a valid email."),
@@ -40,18 +37,16 @@ const RegisterPage = () => {
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await registerMutate(values).then((res) => {
-        Swal.fire({
-          title: res?.message,
-          icon: "success",
-        }).then((res) => {
-          if (res.isConfirmed) {
-            router.push("/login");
-          }
+      await registerMutate(values)
+        .then(() => {
+          toast.success("Register Success");
+          router.push("/login");
+        })
+        .catch((error) => {
+          toast.error(error);
         });
-      });
     } catch (error) {
-      console.error("Error submit : ", error);
+      console.error("Error : ", error);
     }
   };
   return (
@@ -108,7 +103,6 @@ const RegisterPage = () => {
           </FormProvider>
         </CardContent>
       </Card>
-      <ToastContainer />
     </main>
   );
 };

@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useLogin } from "@/services/authServices";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email format. Please enter a valid email."),
@@ -34,11 +35,16 @@ const LoginPage = () => {
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await loginMutate(values).then(() => {
-        router.push("/tasks");
-      });
+      await loginMutate(values)
+        .then(() => {
+          toast.success("Login Success");
+          router.push("/tasks");
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
     } catch (err) {
-      console.error("Error:", err);
+      console.error("Error : ", err);
     }
   };
 
