@@ -4,6 +4,8 @@ import "./globals.css";
 import QueryProvider from "@/components/QueryProvider";
 import { ToastContainer } from "react-toastify";
 import Header from "@/components/Header";
+import SideMenu from "@/components/SideMenu";
+import InfoTask from "@/components/InfoTask";
 
 const inter = Inter({ subsets: ["latin"], weight: "400" });
 const poppins = Poppins({ subsets: ["latin"], weight: "500" });
@@ -25,7 +27,11 @@ export default function RootLayout({
 
         <QueryProvider>
           <Header />
-          {children}
+          <main className="flex justify-between min-h-screen">
+            <SideMenu />
+            {children}
+            <InfoTask />
+          </main>
         </QueryProvider>
       </body>
     </html>

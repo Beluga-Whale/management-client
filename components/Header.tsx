@@ -8,7 +8,7 @@ import HamburgerMenu from "./HamburgerMenu";
 
 const Header = () => {
   return (
-    <nav className="container-main flex items-center justify-between  bg-white ">
+    <nav className="w-full  p-4 flex items-center justify-between  bg-white ">
       <Link href="/" className="text-2xl font-bold text-violet-500 ">
         BELUGA
       </Link>

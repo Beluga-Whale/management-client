@@ -1,0 +1,71 @@
+"use client";
+import { LayoutGrid } from "lucide-react";
+import { FileCheck } from "lucide-react";
+import { Timer } from "lucide-react";
+import { TimerOff } from "lucide-react";
+import Link from "next/link";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { usePathname } from "next/navigation";
+const SideMenu = () => {
+  const pathname = usePathname();
+  const activeColor = (path: string) => {
+    return pathname == path ? "text-violet-400" : "text-slate-500";
+  };
+
+  const pathMenu = [
+    {
+      title: "All",
+      path: "/tasks",
+      icon: <LayoutGrid className={activeColor("/tasks")} />,
+    },
+    {
+      title: "Completed",
+      path: "/completed",
+      icon: <FileCheck className={activeColor("/completed")} />,
+    },
+    {
+      title: "Pending",
+      path: "/pending",
+      icon: <Timer className={activeColor("/pending")} />,
+    },
+    {
+      title: "Overdue",
+      path: "/overdue",
+      icon: <TimerOff className={activeColor("/overdue")} />,
+    },
+  ];
+  return (
+    <div className="flex flex-col items-center flex-1 gap-10 p-4 ">
+      {pathMenu.map((item, index) => (
+        <TooltipProvider key={index}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link href={item?.path}>{item?.icon}</Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{item?.title}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ))}
+      {/* <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href="/">
+              <LayoutGrid className="text-violet-400" />
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Add to library</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider> */}
+    </div>
+  );
+};
+export default SideMenu;

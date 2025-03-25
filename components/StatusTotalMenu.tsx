@@ -3,7 +3,7 @@ import { Tally1 } from "lucide-react";
 const StatusTotalMenu = () => {
   const title = [
     {
-      title: "Total Tasks:",
+      title: "Total Tasks",
       count: 12,
       color: "text-purple-400",
     },
