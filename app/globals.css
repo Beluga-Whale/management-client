@@ -57,3 +57,7 @@
 .login-container {
   @apply max-w-lg w-full mx-auto;
 }
+
+.container-main {
+  @apply max-w-7xl mx-auto p-4;
+}

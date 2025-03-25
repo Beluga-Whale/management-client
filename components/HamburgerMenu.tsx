@@ -10,7 +10,7 @@ import {
 import StatusTotalMenu from "./StatusTotalMenu";
 import CardActivity from "./CardActivity";
 
-const SideMenu = () => {
+const HamburgerMenu = () => {
   return (
     <Sheet>
       <SheetTrigger asChild className="sm:hidden">
@@ -33,4 +33,4 @@ const SideMenu = () => {
     </Sheet>
   );
 };
-export default SideMenu;
+export default HamburgerMenu;

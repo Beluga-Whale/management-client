@@ -1,4 +1,5 @@
+import WidgetsIcon from "@mui/icons-material/Widgets";
 const TaskPage = () => {
-  return <div>TaskPage</div>;
+  return <div className="container-main">TaskPage</div>;
 };
 export default TaskPage;
