@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/components/QueryProvider";
 import { ToastContainer } from "react-toastify";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"], weight: "400" });
 const poppins = Poppins({ subsets: ["latin"], weight: "500" });
@@ -22,7 +23,10 @@ export default function RootLayout({
       <body className={`${inter.className} ${poppins.className} antialiased`}>
         <ToastContainer position="top-center" theme="light" />
 
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <Header />
+          {children}
+        </QueryProvider>
       </body>
     </html>
   );
