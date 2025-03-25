@@ -2,7 +2,6 @@
 import Link from "next/link";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import PersonIcon from "@mui/icons-material/Person";
 import { Button } from "./ui/button";
 import HamburgerMenu from "./HamburgerMenu";
 
@@ -28,9 +27,6 @@ const Header = () => {
         </Link>
         <Link href={"/"} className="p-2 border-2 border-slate-200 rounded-full">
           <FacebookIcon className="text-violet-500 " />
-        </Link>
-        <Link href={"/"} className="p-2 border-2 border-slate-200 rounded-full">
-          <PersonIcon className="text-violet-500 " />
         </Link>
       </div>
       {/* Mobile Menu (Hamburger) */}
