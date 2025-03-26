@@ -55,7 +55,7 @@ const CardActivity = () => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching</p>;
   return (
-    <Card className="bg-slate-200">
+    <Card className="bg-slate-200 border-none">
       <CardHeader>
         <CardTitle className="text-center">Complete vs Pending Tasks</CardTitle>
         <CardDescription className="text-center">
