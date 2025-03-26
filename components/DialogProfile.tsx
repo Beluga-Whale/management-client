@@ -1,3 +1,5 @@
+"use client";
+import { useGetProfile } from "@/services/userServices";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -11,45 +13,70 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import PersonIcon from "@mui/icons-material/Person";
-
+import GitHubIcon from "@mui/icons-material/GitHub";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import Link from "next/link";
+import { useLogout } from "@/services/authServices";
+import { useRouter } from "next/navigation";
 const DialogProfile = () => {
+  const router = useRouter();
+
+  const { data: userData, isLoading, isError } = useGetProfile();
+  const { mutate: mutateLogout } = useLogout();
+
+  const handleLogout = () => {
+    mutateLogout();
+    // router.push("/login");
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error fetching profile</p>;
   return (
     <Dialog>
       <DialogTrigger
         asChild
         className="p-2 bg-violet-400 text-white rounded-lg hover:cursor-pointer hover:bg-violet-500 "
       >
-        {/* <Button variant="outline">Hello, Thanathat</Button> */}
         <h1 className="flex items-center justify-between">
-          Hello, Thanathat{" "}
+          Hello, {userData?.user?.Name}{" "}
           <span>
             <PersonIcon />
           </span>{" "}
         </h1>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="p-3 bg-slate-50">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
+          <DialogTitle> Profile</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
+        <div className="flex justify-between gap-2 ">
+          <div>
+            <p>{userData?.user?.Email}</p>
+            <p className="text-xs text-gray-400">{userData?.user?.Email}</p>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
+          <div className="flex  items-center gap-2 ">
+            <Link
+              href="/"
+              className="p-1 text-xs rounded-md border-2 border-slate-200  "
+            >
+              <GitHubIcon fontSize="small" /> Github
+            </Link>
+            <Link
+              href="/"
+              className="p-1 text-xs rounded-md border-2 border-slate-200  "
+            >
+              <FacebookIcon fontSize="small" /> Github
+            </Link>
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button
+            type="submit"
+            variant="default"
+            className="bg-red-500"
+            onClick={() => handleLogout()}
+          >
+            Logout
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

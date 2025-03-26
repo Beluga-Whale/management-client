@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { login, register } from "./api/authApi";
+import { login, logout, register } from "./api/authApi";
 
 export const useLogin = () => {
   return useMutation({
@@ -17,6 +17,16 @@ export const useRegister = () => {
     onSuccess: () => {},
     onError: (error: Error) => {
       console.error("Register Failed:", error.message);
+    },
+  });
+};
+
+export const useLogout = () => {
+  return useMutation({
+    mutationFn: logout,
+    onSuccess: () => {},
+    onError: (error: Error) => {
+      console.error("Logout Failed:", error.message);
     },
   });
 };

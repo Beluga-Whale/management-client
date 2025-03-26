@@ -40,7 +40,7 @@ const SideMenu = () => {
     },
   ];
   return (
-    <div className="flex flex-col items-center flex-1 gap-10 p-4 ">
+    <div className="flex flex-col items-center  gap-10 p-4 ">
       {pathMenu.map((item, index) => (
         <TooltipProvider key={index}>
           <Tooltip>
@@ -53,18 +53,6 @@ const SideMenu = () => {
           </Tooltip>
         </TooltipProvider>
       ))}
-      {/* <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link href="/">
-              <LayoutGrid className="text-violet-400" />
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Add to library</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider> */}
     </div>
   );
 };
