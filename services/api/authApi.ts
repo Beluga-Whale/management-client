@@ -1,5 +1,4 @@
-import { Login, UserDto } from "@/types";
-import { Register } from "@tanstack/react-query";
+import { Login, Register, UserDto } from "@/types";
 import axios from "axios";
 const apiUrl: string = process.env.NEXT_PUBLIC_PORT || "";
 

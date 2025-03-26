@@ -1,28 +1,37 @@
+import { useGetAllTasks } from "@/services/taskServices";
+import dayjs from "dayjs";
 import { Tally1 } from "lucide-react";
 
 const StatusTotalMenu = () => {
+  const { data: taskData, isLoading, isError } = useGetAllTasks();
+
+  const taskAll = taskData?.message?.length;
+  const taskNotComplete = taskData?.message?.filter((item) => !item.Completed);
+  const taskComplete = taskData?.message?.filter((item) => item.Completed);
   const title = [
     {
       title: "Total Tasks",
-      count: 12,
+      count: taskAll,
       color: "text-purple-400",
     },
     {
       title: "In Progress",
-      count: 8,
+      count: taskNotComplete?.length,
       color: "text-blue-400",
     },
     {
       title: "Open Tasks",
-      count: 4,
+      count: taskNotComplete?.length,
       color: "text-green-400",
     },
     {
       title: "Completed",
-      count: 4,
+      count: taskComplete?.length,
       color: "text-orange-400",
     },
   ];
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error fetching profile</p>;
   return (
     <div className="grid grid-cols-2 gap-4 ">
       {title.map((item, index) => (

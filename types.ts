@@ -1,3 +1,4 @@
+import * as dayjs from "dayjs";
 export type Login = {
   email: string;
   password: string;
@@ -22,4 +23,22 @@ export type UserDto = {
     Role: Role; // กำหนดเป็น enum
     IsVerified: boolean; // ตัวแปรนี้ใน Go เป็น private
   };
+};
+
+export type TaskDto = {
+  ID?: number;
+  CreatedAt?: dayjs.Dayjs | null;
+  UpdatedAt?: dayjs.Dayjs | null;
+  DeletedAt?: dayjs.Dayjs | null;
+  DueDate?: dayjs.Dayjs | null;
+  Title?: string;
+  Description?: string;
+  Status?: "active" | "inactive";
+  Completed?: boolean;
+  Priority?: "low" | "medium" | "high";
+  UserID?: number;
+};
+
+export type TasksAllDto = {
+  message: TaskDto[] | undefined;
 };

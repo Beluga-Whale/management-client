@@ -19,10 +19,6 @@ const Header = () => {
       <div className="hidden sm:flex justify-between items-center  w-full px-4 md:px-14 lg:px-20 ">
         <div>
           <p>👋Welcome, {userData?.user?.Email}</p>
-          <p>
-            You have <span className="text-violet-500 font-bold">11313123</span>{" "}
-            active tasks
-          </p>
         </div>
 
         <div>

@@ -12,31 +12,48 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useGetAllTasks } from "@/services/taskServices";
 import { useMemo } from "react";
 import { Label, Pie, PieChart } from "recharts";
 
-const chartData = [
-  { browser: "complete", tasks: 275, fill: "var(--color-complete)" },
-  { browser: "pending", tasks: 200, fill: "var(--color-pending)" },
-];
-const chartConfig = {
-  tasks: {
-    label: "Tasks",
-  },
-  complete: {
-    label: "Complete",
-    color: "hsl(var(--chart-1))",
-  },
-  pending: {
-    label: "Pending",
-    color: "hsl(var(--chart-2))",
-  },
-} satisfies ChartConfig;
-
 const CardActivity = () => {
+  const { data: taskData, isLoading, isError } = useGetAllTasks();
+
+  const taskNotComplete = taskData?.message?.filter((item) => !item.Completed);
+  const taskComplete = taskData?.message?.filter((item) => item.Completed);
+  console.log("taskNotComplete?.length ", taskNotComplete?.length);
+  const chartData = [
+    {
+      browser: "complete",
+      tasks: taskComplete?.length ?? 0,
+      fill: "var(--color-complete)",
+    },
+    {
+      browser: "pending",
+      tasks: taskNotComplete?.length ?? 0,
+      fill: "var(--color-pending)",
+    },
+  ];
+  const chartConfig = {
+    tasks: {
+      label: "Tasks",
+    },
+    complete: {
+      label: "Complete",
+      color: "hsl(var(--chart-1))",
+    },
+    pending: {
+      label: "Pending",
+      color: "hsl(var(--chart-2))",
+    },
+  } satisfies ChartConfig;
+
   const totalTasks = useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.tasks, 0);
   }, []);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error fetching</p>;
   return (
     <Card className="bg-slate-200">
       <CardHeader>
