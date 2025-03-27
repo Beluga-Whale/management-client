@@ -5,7 +5,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
+} from "../ui/form";
 import {
   Select,
   SelectTrigger,
@@ -13,7 +13,7 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-} from "./ui/select";
+} from "../ui/select";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 type Option = {

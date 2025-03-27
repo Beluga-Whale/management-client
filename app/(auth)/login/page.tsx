@@ -2,7 +2,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import FormInputField from "@/components/FormInputField";
+import FormInputField from "@/components/FormInput/FormInputField";
 import { Button } from "@/components/ui/button";
 import {
   Card,

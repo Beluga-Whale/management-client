@@ -9,11 +9,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import FormInputField from "./FormInputField";
+import FormInputField from "./FormInput/FormInputField";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormSelectField from "./FormSelectFiled";
-import FormDatePickerField from "./FormDatePickerField";
+import FormSelectField from "./FormInput/FormSelectFiled";
+import FormDatePickerField from "./FormInput/FormDatePickerField";
 
 const formSchema = z.object({
   title: z.string().min(1, { message: "title is required." }),
