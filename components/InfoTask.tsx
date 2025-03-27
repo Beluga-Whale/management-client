@@ -10,7 +10,7 @@ const InfoTask = () => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching profile</p>;
   return (
-    <section className="hidden sm:block p-4 ">
+    <section className="hidden sm:block p-4 flex-2 ">
       <div className="flex flex-col justify-between h-[40rem] ">
         <DialogProfile />
         <p>{userData?.user?.Email}</p>

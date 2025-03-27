@@ -17,6 +17,8 @@ import FormDatePickerField from "./FormInput/FormDatePickerField";
 import dayjs from "dayjs";
 import { useCreateTask } from "@/services/taskServices";
 import { CreateTaskDto } from "@/types";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 const formSchema = z.object({
   title: z.string().min(1, { message: "title is required." }),
@@ -29,7 +31,9 @@ const formSchema = z.object({
 });
 
 const DialogCreateTask = () => {
-  const { mutate: mutateCreateTask } = useCreateTask();
+  const [open, setOpen] = useState(false);
+
+  const { mutateAsync: mutateCreateTask } = useCreateTask();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,12 +51,15 @@ const DialogCreateTask = () => {
         Title: values.title,
         Description: values.description,
         Priority: values.priority,
-        DueDate: values.dudeDate,
+        DueDate: dayjs(values.dudeDate),
+        Completed: Number(values?.complete) == 1 ? true : false,
       };
       await mutateCreateTask(payload)
         .then(() => {
-          toast.success("Login Success");
-          router.push("/tasks");
+          toast.success("Create Success");
+
+          setOpen(false);
+          form.reset();
         })
         .catch((error) => {
           toast.error(error);
@@ -63,9 +70,10 @@ const DialogCreateTask = () => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open}>
       <DialogTrigger asChild className="mx-auto w-full">
         <Button
+          onClick={() => setOpen(true)}
           variant="outline"
           className="max-w-[20.6rem]  h-[16.2rem]  border-dashed hover:bg-slate-200 hover:border-solid cursor-pointer"
         >
@@ -78,7 +86,10 @@ const DialogCreateTask = () => {
         </DialogHeader>
         <FormProvider {...form}>
           <form
-            onSubmit={form.handleSubmit(handleSubmitTask)}
+            onSubmit={(e) => {
+              e.preventDefault();
+              form.handleSubmit(handleSubmitTask)();
+            }}
             className="space-y-5"
           >
             <FormInputField
@@ -118,11 +129,6 @@ const DialogCreateTask = () => {
                 { label: "No", value: 2 },
               ]}
             />
-            {/* {isError && axios.isAxiosError(error) && (
-              <p className="text-red-500 text-sm ">
-                {error?.response?.data?.error}
-              </p>
-            )} */}
             <DialogFooter>
               <Button type="submit" className="w-full">
                 Save changes

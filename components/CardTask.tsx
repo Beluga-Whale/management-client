@@ -11,13 +11,14 @@ type CardTaskProps = {
 };
 
 const CardTask = ({ task }: CardTaskProps) => {
-  const priorityColor = task?.Priority
-    ? "text-green-400"
-    : task?.Priority
-    ? "text-yellow-400"
-    : task?.Priority
-    ? "text-red-400"
-    : "text-black";
+  const priorityColor =
+    task?.Priority == "low"
+      ? "text-green-400"
+      : task?.Priority == "medium"
+      ? "text-yellow-400"
+      : task?.Priority == "high"
+      ? "text-red-500"
+      : "text-black";
   return (
     <>
       <Card className="w-full max-w-[20.6rem] mx-auto h-[16.2rem] bg-slate-50 ">

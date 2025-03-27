@@ -53,7 +53,7 @@ const FormDatePickerField = <T extends FieldValues>({
                 <Calendar
                   mode="single"
                   selected={field.value ? new Date(field.value) : undefined}
-                  onSelect={(date) => field.onChange(date?.toISOString())}
+                  onSelect={(date) => field.onChange(date)}
                   initialFocus
                 />
               </PopoverContent>

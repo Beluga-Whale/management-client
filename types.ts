@@ -46,7 +46,7 @@ export type TasksAllDto = {
 export type CreateTaskDto = {
   Title?: string | undefined;
   Description?: string | undefined;
-  Priority?: "low" | "medium" | "heigh";
+  Priority?: string | undefined;
   DueDate?: dayjs.Dayjs | null;
   Completed: boolean;
 };
