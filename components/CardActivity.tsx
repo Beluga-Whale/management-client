@@ -21,7 +21,6 @@ const CardActivity = () => {
 
   const taskNotComplete = taskData?.message?.filter((item) => !item.Completed);
   const taskComplete = taskData?.message?.filter((item) => item.Completed);
-  console.log("taskNotComplete?.length ", taskNotComplete?.length);
   const chartData = [
     {
       browser: "complete",
@@ -50,7 +49,7 @@ const CardActivity = () => {
 
   const totalTasks = useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.tasks, 0);
-  }, []);
+  }, [taskNotComplete, taskComplete]);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching</p>;

@@ -1,3 +1,4 @@
+import DialogCreateTask from "@/components/DialogCreateTask";
 import FilterPriority from "@/components/FilterPriority";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 const TaskPage = () => {
@@ -7,6 +8,7 @@ const TaskPage = () => {
         <h1>All Tasks</h1>
         <FilterPriority />
       </section>
+      <DialogCreateTask />
     </main>
   );
 };
