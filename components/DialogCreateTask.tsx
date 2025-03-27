@@ -14,6 +14,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormSelectField from "./FormInput/FormSelectFiled";
 import FormDatePickerField from "./FormInput/FormDatePickerField";
+import dayjs from "dayjs";
+import { useCreateTask } from "@/services/taskServices";
+import { CreateTaskDto } from "@/types";
 
 const formSchema = z.object({
   title: z.string().min(1, { message: "title is required." }),
@@ -26,37 +29,45 @@ const formSchema = z.object({
 });
 
 const DialogCreateTask = () => {
+  const { mutate: mutateCreateTask } = useCreateTask();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
       description: "",
       priority: "",
-      dudeDate: new Date(),
+      dudeDate: dayjs().toDate(),
     },
   });
 
   const handleSubmitTask = async (values: z.infer<typeof formSchema>) => {
-    // try {
-    //   await loginMutate(values)
-    //     .then(() => {
-    //       toast.success("Login Success");
-    //       router.push("/tasks");
-    //     })
-    //     .catch((error) => {
-    //       toast.error(error);
-    //     });
-    // } catch (err) {
-    //   console.error("Error : ", err);
-    // }
+    try {
+      const payload: CreateTaskDto = {
+        Title: values.title,
+        Description: values.description,
+        Priority: values.priority,
+        DueDate: values.dudeDate,
+      };
+      await mutateCreateTask(payload)
+        .then(() => {
+          toast.success("Login Success");
+          router.push("/tasks");
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+    } catch (err) {
+      console.error("Error : ", err);
+    }
   };
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="mx-auto w-full">
         <Button
           variant="outline"
-          className="p-32 border-dashed hover:bg-slate-200 hover:border-solid cursor-pointer"
+          className="max-w-[20.6rem]  h-[16.2rem]  border-dashed hover:bg-slate-200 hover:border-solid cursor-pointer"
         >
           Edit Profile
         </Button>
