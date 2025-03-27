@@ -7,10 +7,10 @@ import {
 import { createTask, getAllTasks } from "./api/taskApi";
 const getTasksQueryKey = "getTasksQueryKey";
 
-export const useGetAllTasks = () => {
+export const useGetAllTasks = (priority?: string) => {
   return useQuery({
-    queryKey: [getTasksQueryKey],
-    queryFn: getAllTasks,
+    queryKey: [getTasksQueryKey, priority],
+    queryFn: () => getAllTasks(priority ?? ""),
   });
 };
 

@@ -1,11 +1,21 @@
 "use client";
+import { filterSelect } from "@/app/lib/feature/filter/filterSlice";
+import { useAppSelector } from "@/app/lib/hook";
 import CardTask from "@/components/CardTask";
 import DialogCreateTask from "@/components/DialogCreateTask";
 import FilterPriority from "@/components/FilterPriority";
 import { useGetAllTasks } from "@/services/taskServices";
 import { TaskDto } from "@/types";
 const TaskPage = () => {
-  const { data: taskData, isLoading, isError } = useGetAllTasks();
+  // NOTE - get value from Redux
+  const { priority } = useAppSelector(filterSelect);
+
+  const {
+    data: taskData,
+    isLoading,
+    isError,
+  } = useGetAllTasks(priority?.toLowerCase() ?? "");
+
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching profile</p>;
   return (
