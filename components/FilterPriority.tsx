@@ -1,33 +1,54 @@
 "use client";
-import { useState } from "react";
 import { Menubar, MenubarMenu, MenubarTrigger } from "./ui/menubar";
-import { useAppDispatch } from "@/app/lib/hook";
+import { useAppSelector, useAppDispatch } from "@/app/lib/hook";
 import { setPriority } from "@/app/lib/feature/filter/filterSlice";
 
 const FilterPriority = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const priorityList = ["All", "Low", "Medium", "High"];
+  // รับค่าจาก Redux
+  const { priority } = useAppSelector((state) => state.filter);
 
   const dispatch = useAppDispatch();
+  // const priorityList = ["All", "Low", "Medium", "High"];
 
-  const handleSelect = (index: number, priority: string) => {
-    setActiveIndex(index);
-    dispatch(setPriority(priority == "All" ? "" : priority));
+  const priorityList = [
+    {
+      label: "All",
+      queryString: "",
+    },
+    {
+      label: "Low",
+      queryString: "low",
+    },
+    {
+      label: "Medium",
+      queryString: "medium",
+    },
+    {
+      label: "High",
+      queryString: "high",
+    },
+  ];
+
+  const handleSelect = (item: string) => {
+    // console.log("item", item);
+    console.log("priority", priority);
+    dispatch(setPriority(item)); // แก้ไขค่าสำหรับ "All"
   };
+
   return (
     <div>
       <Menubar className="bg-slate-50 border-none">
         {priorityList?.map((item, index) => (
           <MenubarMenu key={index}>
             <MenubarTrigger
-              className={`hover:text-violet-500 cursor-pointer ${
-                activeIndex == index ? "text-violet-500" : "text-black"
-              } 
-              ${activeIndex == index ? "bg-slate-200" : "bg-none"}
-              `}
-              onClick={() => handleSelect(index, item)}
+              className={`cursor-pointer text-black hover:text-violet-500 transition-all duration-200 ${
+                priority === item?.queryString
+                  ? "text-violet-500 bg-slate-200"
+                  : ""
+              }`}
+              onClick={() => handleSelect(item?.queryString)}
             >
-              {item}
+              {item?.label}
             </MenubarTrigger>
           </MenubarMenu>
         ))}

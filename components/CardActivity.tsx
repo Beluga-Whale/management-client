@@ -17,7 +17,7 @@ import { useMemo } from "react";
 import { Label, Pie, PieChart } from "recharts";
 
 const CardActivity = () => {
-  const { data: taskData, isLoading, isError } = useGetAllTasks();
+  const { data: taskData, isLoading, isError } = useGetAllTasks("");
 
   const taskNotComplete = taskData?.message?.filter((item) => !item.Completed);
   const taskComplete = taskData?.message?.filter((item) => item.Completed);

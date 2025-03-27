@@ -11,6 +11,7 @@ export const useGetAllTasks = (priority?: string) => {
   return useQuery({
     queryKey: [getTasksQueryKey, priority],
     queryFn: () => getAllTasks(priority ?? ""),
+    enabled: priority != undefined,
   });
 };
 

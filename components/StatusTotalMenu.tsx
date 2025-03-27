@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { Tally1 } from "lucide-react";
 
 const StatusTotalMenu = () => {
-  const { data: taskData, isLoading, isError } = useGetAllTasks();
+  const { data: taskData, isLoading, isError } = useGetAllTasks("");
 
   const taskAll = taskData?.message?.length;
   const taskNotComplete = taskData?.message?.filter((item) => !item.Completed);
