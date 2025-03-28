@@ -4,6 +4,11 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { SquarePen } from "lucide-react";
 import { Trash2 } from "lucide-react";
+import { useAppDispatch } from "@/app/lib/hook";
+import {
+  setDialogEdit,
+  setDialogEditTask,
+} from "@/app/lib/feature/dialog/dialogSlice";
 // เปิดใช้งาน plugin
 dayjs.extend(relativeTime);
 type CardTaskProps = {
@@ -11,6 +16,8 @@ type CardTaskProps = {
 };
 
 const CardTask = ({ task }: CardTaskProps) => {
+  const dispatch = useAppDispatch();
+
   const priorityColor =
     task?.Priority == "low"
       ? "text-green-400"
@@ -38,14 +45,15 @@ const CardTask = ({ task }: CardTaskProps) => {
               <SquarePen
                 className="text-yellow-300 cursor-pointer "
                 size={24}
+                onClick={() => {
+                  dispatch(setDialogEdit(true));
+                  dispatch(setDialogEditTask(task));
+                }}
               />
               <Trash2 className="text-red-500 cursor-pointer" size={24} />
             </div>
           </div>
         </CardContent>
-        {/* <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter> */}
       </Card>
     </>
   );
