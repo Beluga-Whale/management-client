@@ -5,6 +5,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import { Button } from "./ui/button";
 import HamburgerMenu from "./HamburgerMenu";
 import { useGetProfile } from "@/services/userServices";
+import DialogCreateTask from "./DialogCreateTask";
 
 const Header = () => {
   const { data: userData, isLoading, isError } = useGetProfile();
@@ -22,7 +23,8 @@ const Header = () => {
         </div>
 
         <div>
-          <Button>Add New Task</Button>
+          {/* <Button>Add New Task</Button> */}
+          <DialogCreateTask btn={true} />
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-4">

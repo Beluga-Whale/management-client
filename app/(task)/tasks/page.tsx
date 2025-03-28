@@ -28,7 +28,7 @@ const TaskPage = () => {
         {taskData?.message?.map((task: TaskDto) => (
           <CardTask key={task.ID} task={task} />
         ))}
-        <DialogCreateTask />
+        <DialogCreateTask btn={false} />
       </div>
     </main>
   );

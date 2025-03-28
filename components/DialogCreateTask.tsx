@@ -20,6 +20,10 @@ import { CreateTaskDto } from "@/types";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
+type DialogCreateTaskProps = {
+  btn: boolean;
+};
+
 const formSchema = z.object({
   title: z.string().min(1, { message: "title is required." }),
   description: z.string().min(1, { message: "title is required." }),
@@ -30,7 +34,7 @@ const formSchema = z.object({
   complete: z.string().min(1, "Complete is required"),
 });
 
-const DialogCreateTask = () => {
+const DialogCreateTask = ({ btn }: DialogCreateTaskProps) => {
   const [open, setOpen] = useState(false);
 
   const { mutateAsync: mutateCreateTask } = useCreateTask();
@@ -70,15 +74,25 @@ const DialogCreateTask = () => {
   };
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="mx-auto w-full">
-        <Button
-          onClick={() => setOpen(true)}
-          variant="outline"
-          className="max-w-[20.6rem]  h-[16.2rem]  border-dashed hover:bg-slate-200 hover:border-solid cursor-pointer"
-        >
-          Edit Profile
-        </Button>
+        {btn ? (
+          <Button
+            onClick={() => setOpen(true)}
+            variant="outline"
+            className=" cursor-pointer bg-violet-500 text-white "
+          >
+            Add New Task
+          </Button>
+        ) : (
+          <Button
+            onClick={() => setOpen(true)}
+            variant="outline"
+            className="max-w-[20.6rem]  h-[16.2rem]  border-dashed hover:bg-slate-200 hover:border-solid cursor-pointer"
+          >
+            Edit Profile
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="p-3 bg-slate-50">
         <DialogHeader>
