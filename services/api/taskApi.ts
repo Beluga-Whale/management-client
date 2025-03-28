@@ -26,3 +26,15 @@ export const createTask = async (body: CreateTaskDto) => {
     throw error;
   }
 };
+
+export const editTask = async (id: number, body: CreateTaskDto) => {
+  try {
+    const result = await axios.put(`${apiUrl}/task/${id}`, body, {
+      withCredentials: true,
+    });
+    return result?.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

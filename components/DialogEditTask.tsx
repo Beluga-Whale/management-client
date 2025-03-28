@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormSelectField from "./FormInput/FormSelectFiled";
 import FormDatePickerField from "./FormInput/FormDatePickerField";
 import dayjs from "dayjs";
-import { useCreateTask } from "@/services/taskServices";
+import { useCreateTask, useEditTask } from "@/services/taskServices";
 import { CreateTaskDto } from "@/types";
 import { toast } from "react-toastify";
 import {
@@ -40,7 +40,7 @@ const DialogEditTask = () => {
   const dispatch = useAppDispatch();
   const { dialogEdit, task } = useAppSelector(dialogSelect);
 
-  const { mutateAsync: mutateCreateTask } = useCreateTask();
+  const { mutateAsync: mutateEditTask } = useEditTask();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,7 +61,10 @@ const DialogEditTask = () => {
         DueDate: dayjs(values.dudeDate),
         Completed: Number(values?.complete) == 1 ? true : false,
       };
-      await mutateCreateTask(payload)
+      await mutateEditTask({
+        id: task?.ID ?? 0,
+        body: payload,
+      })
         .then(() => {
           toast.success("Create Success");
 
