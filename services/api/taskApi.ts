@@ -38,3 +38,15 @@ export const editTask = async (id: number, body: CreateTaskDto) => {
     throw error;
   }
 };
+
+export const deleteTask = async (id: number) => {
+  try {
+    const result = await axios.delete(`${apiUrl}/task/${id}`, {
+      withCredentials: true,
+    });
+    return result?.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

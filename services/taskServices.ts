@@ -4,7 +4,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { createTask, editTask, getAllTasks } from "./api/taskApi";
+import { createTask, deleteTask, editTask, getAllTasks } from "./api/taskApi";
 import { CreateTaskDto } from "@/types";
 const getTasksQueryKey = "getTasksQueryKey";
 
@@ -34,6 +34,19 @@ export const useEditTask = () => {
   return useMutation({
     mutationFn: (data: { id: number; body: CreateTaskDto }) =>
       editTask(data?.id, data?.body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [getTasksQueryKey] });
+    },
+    onError: (error: Error) => {
+      console.error("Register Failed:", error.message);
+    },
+  });
+};
+
+export const useDeleteTask = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number) => deleteTask(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [getTasksQueryKey] });
     },
