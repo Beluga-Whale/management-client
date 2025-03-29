@@ -68,3 +68,39 @@ export const getCompleteTasks = async (
     throw error;
   }
 };
+
+export const getPendingTasks = async (
+  priority: string
+): Promise<TasksAllDto> => {
+  try {
+    const result = await axios.get(
+      `${apiUrl}/task/pending?priority=${priority}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    return result.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getOverdueTasks = async (
+  priority: string
+): Promise<TasksAllDto> => {
+  try {
+    const result = await axios.get(
+      `${apiUrl}/task/overdue?priority=${priority}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    return result.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

@@ -61,6 +61,8 @@ const DialogEditTask = () => {
         DueDate: dayjs(values.dudeDate),
         Completed: Number(values?.complete) == 1 ? true : false,
       };
+      console.log("payload", payload);
+
       await mutateEditTask({
         id: task?.ID ?? 0,
         body: payload,

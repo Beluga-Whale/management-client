@@ -10,10 +10,14 @@ import {
   editTask,
   getAllTasks,
   getCompleteTasks,
+  getOverdueTasks,
+  getPendingTasks,
 } from "./api/taskApi";
 import { CreateTaskDto } from "@/types";
 const getTasksQueryKey = "getTasksQueryKey";
 const getTasksCompleteQueryKey = "getTasksCompleteQueryKey";
+const getTasksPendingQueryKey = "getTasksPendingQueryKey";
+const getTasksOverdueQueryKey = "getTasksOverdueQueryKey";
 
 export const useGetAllTasks = (priority?: string) => {
   return useQuery({
@@ -42,7 +46,18 @@ export const useEditTask = () => {
     mutationFn: (data: { id: number; body: CreateTaskDto }) =>
       editTask(data?.id, data?.body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [getTasksQueryKey] });
+      queryClient.invalidateQueries({
+        queryKey: [getTasksQueryKey],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [getTasksCompleteQueryKey],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [getTasksPendingQueryKey],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [getTasksOverdueQueryKey],
+      });
     },
     onError: (error: Error) => {
       console.error("Register Failed:", error.message);
@@ -55,7 +70,18 @@ export const useDeleteTask = () => {
   return useMutation({
     mutationFn: (id: number) => deleteTask(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [getTasksQueryKey] });
+      queryClient.invalidateQueries({
+        queryKey: [getTasksQueryKey],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [getTasksCompleteQueryKey],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [getTasksPendingQueryKey],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [getTasksOverdueQueryKey],
+      });
     },
     onError: (error: Error) => {
       console.error("Register Failed:", error.message);
@@ -67,6 +93,22 @@ export const useGetCompleteTasks = (priority?: string) => {
   return useQuery({
     queryKey: [getTasksCompleteQueryKey, priority],
     queryFn: () => getCompleteTasks(priority ?? ""),
+    enabled: priority != undefined,
+  });
+};
+
+export const useGetPendingTasks = (priority?: string) => {
+  return useQuery({
+    queryKey: [getTasksPendingQueryKey, priority],
+    queryFn: () => getPendingTasks(priority ?? ""),
+    enabled: priority != undefined,
+  });
+};
+
+export const useGetOverdueTasks = (priority?: string) => {
+  return useQuery({
+    queryKey: [getTasksOverdueQueryKey, priority],
+    queryFn: () => getOverdueTasks(priority ?? ""),
     enabled: priority != undefined,
   });
 };
