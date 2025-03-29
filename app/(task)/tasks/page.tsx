@@ -20,7 +20,7 @@ const TaskPage = () => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching profile</p>;
   return (
-    <main className="flex-8 p-4 bg-gray-100 rounded-tl-xl rounded-tr-xl ">
+    <main className="flex-8 p-4 bg-gray-100 rounded-tl-xl rounded-tr-xl overflow-y-auto max-h-screen ">
       <section className="flex justify-between">
         <h1>All Tasks</h1>
         <FilterPriority />
