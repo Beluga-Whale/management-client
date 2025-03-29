@@ -25,18 +25,18 @@ const SideMenu = () => {
     },
     {
       title: "Completed",
-      path: "/completed",
-      icon: <FileCheck className={activeColor("/completed")} />,
+      path: "/tasks/completed",
+      icon: <FileCheck className={activeColor("/tasks/completed")} />,
     },
     {
       title: "Pending",
-      path: "/pending",
-      icon: <Timer className={activeColor("/pending")} />,
+      path: "/tasks/pending",
+      icon: <Timer className={activeColor("/tasks/pending")} />,
     },
     {
       title: "Overdue",
-      path: "/overdue",
-      icon: <TimerOff className={activeColor("/overdue")} />,
+      path: "/tasks/overdue",
+      icon: <TimerOff className={activeColor("/tasks/overdue")} />,
     },
   ];
   return (

@@ -50,3 +50,21 @@ export const deleteTask = async (id: number) => {
     throw error;
   }
 };
+
+export const getCompleteTasks = async (
+  priority: string
+): Promise<TasksAllDto> => {
+  try {
+    const result = await axios.get(
+      `${apiUrl}/task/complete?priority=${priority}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    return result.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

@@ -4,9 +4,16 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { createTask, deleteTask, editTask, getAllTasks } from "./api/taskApi";
+import {
+  createTask,
+  deleteTask,
+  editTask,
+  getAllTasks,
+  getCompleteTasks,
+} from "./api/taskApi";
 import { CreateTaskDto } from "@/types";
 const getTasksQueryKey = "getTasksQueryKey";
+const getTasksCompleteQueryKey = "getTasksCompleteQueryKey";
 
 export const useGetAllTasks = (priority?: string) => {
   return useQuery({
@@ -53,5 +60,13 @@ export const useDeleteTask = () => {
     onError: (error: Error) => {
       console.error("Register Failed:", error.message);
     },
+  });
+};
+
+export const useGetCompleteTasks = (priority?: string) => {
+  return useQuery({
+    queryKey: [getTasksCompleteQueryKey, priority],
+    queryFn: () => getCompleteTasks(priority ?? ""),
+    enabled: priority != undefined,
   });
 };
