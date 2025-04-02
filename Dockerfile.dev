@@ -12,7 +12,7 @@ RUN npm install -f
 COPY . .
 
 # เปิดพอร์ต 3000
-EXPOSE 3000
+# EXPOSE 3000
 
 # ใช้โหมด dev
 CMD ["npm", "run", "dev"]
