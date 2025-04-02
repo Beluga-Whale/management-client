@@ -1,12 +1,12 @@
 # ใช้ Node.js เวอร์ชัน LTS
-FROM node:18-alpine
+FROM node:22-alpine
 
 # ตั้งค่า Working Directory
 WORKDIR /app
 
 # คัดลอก package.json และติดตั้ง dependencies
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm install -f
 
 # คัดลอกโค้ดทั้งหมด
 COPY . .
