@@ -24,8 +24,6 @@ export async function middleware(req: NextRequest) {
     console.error("Invalid token:", error);
     return redirectToLogin(req);
   }
-
-  return NextResponse.next();
 }
 
 function redirectToLogin(req: NextRequest) {

@@ -4,29 +4,26 @@ import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
 import PersonIcon from "@mui/icons-material/Person";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import Link from "next/link";
-import { useLogout } from "@/services/authServices";
+// import { useLogout } from "@/services/authServices";
 import { useRouter } from "next/navigation";
+import { deleteCookie } from "@/lib/action";
 const DialogProfile = () => {
   const router = useRouter();
 
   const { data: userData, isLoading, isError } = useGetProfile();
-  const { mutate: mutateLogout } = useLogout();
 
-  const handleLogout = () => {
-    mutateLogout();
-    // router.push("/login");
+  const handleLogout = async () => {
+    await deleteCookie();
+    router.push("/login");
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -55,13 +52,15 @@ const DialogProfile = () => {
           </div>
           <div className="flex  items-center gap-2 ">
             <Link
-              href="/"
+              href="https://github.com/Beluga-Whale"
+              target="_blank"
               className="p-1 text-xs rounded-md border-2 border-slate-200  "
             >
               <GitHubIcon fontSize="small" /> Github
             </Link>
             <Link
-              href="/"
+              href="https://www.facebook.com/Thanathat159/?locale=th_TH"
+              target="_blank"
               className="p-1 text-xs rounded-md border-2 border-slate-200  "
             >
               <FacebookIcon fontSize="small" /> Github
