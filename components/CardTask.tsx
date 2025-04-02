@@ -62,9 +62,7 @@ const CardTask = ({ task }: CardTaskProps) => {
         <CardContent className="flex flex-col justify-between h-full">
           <p>{task?.Description}</p>
           <div className="flex items-center justify-between">
-            <p className="text-sm">
-              {dayjs(task?.CreatedAt).subtract(1, "day").fromNow()}
-            </p>
+            <p className="text-sm">{dayjs(task?.CreatedAt).fromNow()}</p>
             <p className={`${priorityColor} text-sm capitalize`}>
               {task?.Priority}
             </p>
