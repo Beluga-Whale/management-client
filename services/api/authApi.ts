@@ -1,4 +1,4 @@
-import { Login, Register, UserDto } from "@/types";
+import { Login, Register, UpdateUser, UserDto } from "@/types";
 import axios from "axios";
 const apiUrl: string = process.env.NEXT_PUBLIC_PORT || "";
 
@@ -42,6 +42,21 @@ export const logout = async () => {
 export const getProfile = async (): Promise<UserDto> => {
   try {
     const result = await axios.get(`${apiUrl}/user`, {
+      withCredentials: true,
+    });
+    return result.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const updateUser = async (
+  id: number,
+  body: UpdateUser
+): Promise<UserDto> => {
+  try {
+    const result = await axios.put(`${apiUrl}/user/${id}`, body, {
       withCredentials: true,
     });
     return result.data;

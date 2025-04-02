@@ -14,7 +14,7 @@ type Role = "user" | "admin"; // ประเภทของ role ที่ส�
 
 export type UserDto = {
   user: {
-    Id: number; // GORM Model จะมี field นี้
+    ID: number; // GORM Model จะมี field นี้
     Email: string;
     Name: string;
     Password: string;
@@ -49,4 +49,8 @@ export type CreateTaskDto = {
   Priority?: string | undefined;
   DueDate?: dayjs.Dayjs | null;
   Completed: boolean;
+};
+
+export type UpdateUser = {
+  Bio?: string | undefined;
 };

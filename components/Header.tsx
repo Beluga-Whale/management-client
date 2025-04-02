@@ -2,7 +2,6 @@
 import Link from "next/link";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { Button } from "./ui/button";
 import HamburgerMenu from "./HamburgerMenu";
 import { useGetProfile } from "@/services/userServices";
 import DialogCreateTask from "./DialogCreateTask";
@@ -28,10 +27,18 @@ const Header = () => {
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-4">
-        <Link href={"/"} className="p-2 border-2 border-slate-200 rounded-full">
+        <Link
+          href={"https://github.com/Beluga-Whale"}
+          target="_blank"
+          className="p-2 border-2 border-slate-200 rounded-full"
+        >
           <GitHubIcon className="text-violet-500 " />
         </Link>
-        <Link href={"/"} className="p-2 border-2 border-slate-200 rounded-full">
+        <Link
+          href={"https://www.facebook.com/Thanathat159/?locale=th_TH"}
+          target="_blank"
+          className="p-2 border-2 border-slate-200 rounded-full"
+        >
           <FacebookIcon className="text-violet-500 " />
         </Link>
       </div>

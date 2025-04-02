@@ -1,5 +1,5 @@
 "use client";
-import { useGetProfile } from "@/services/userServices";
+import { useGetProfile, useUpdateUser } from "@/services/userServices";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -16,18 +16,70 @@ import Link from "next/link";
 // import { useLogout } from "@/services/authServices";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "@/lib/action";
+import { FormProvider, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import FormInputField from "./FormInput/FormInputField";
+import { useEffect } from "react";
+import { UpdateUser } from "@/types";
+import { toast } from "react-toastify";
+
+const formSchema = z.object({
+  bio: z.string(),
+});
+
 const DialogProfile = () => {
   const router = useRouter();
 
+  const { mutateAsync: updateMutate } = useUpdateUser();
   const { data: userData, isLoading, isError } = useGetProfile();
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      bio: "",
+    },
+  });
+
+  const currentBio = form.watch("bio");
+  const isBioChanged = currentBio !== userData?.user?.Bio;
 
   const handleLogout = async () => {
     await deleteCookie();
     router.push("/login");
   };
+  const handleSubmitTask = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const payload: UpdateUser = {
+        Bio: values.bio,
+      };
+      await updateMutate({
+        id: userData?.user?.ID ?? 0,
+        body: payload,
+      })
+        .then(() => {
+          toast.success("Update Success");
+          form.reset();
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+    } catch (err) {
+      console.error("Error : ", err);
+    }
+  };
+
+  useEffect(() => {
+    if (userData?.user?.Bio !== "") {
+      form.reset({
+        bio: userData?.user?.Bio,
+      });
+    }
+  }, [userData?.user?.Bio, form]);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching profile</p>;
+
   return (
     <Dialog>
       <DialogTrigger
@@ -67,11 +119,35 @@ const DialogProfile = () => {
             </Link>
           </div>
         </div>
+        <FormProvider {...form}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              form.handleSubmit(handleSubmitTask)();
+            }}
+            className="space-y-5 flex items-center gap-4"
+          >
+            <FormInputField
+              control={form.control}
+              name="bio"
+              label="Bio"
+              placeholder="Task Title"
+            />
+            <Button
+              type="submit"
+              variant="default"
+              className="bg-violet-500 "
+              disabled={!isBioChanged}
+            >
+              Update
+            </Button>
+          </form>
+        </FormProvider>
         <DialogFooter>
           <Button
             type="submit"
             variant="default"
-            className="bg-red-500"
+            className="bg-red-500 "
             onClick={() => handleLogout()}
           >
             Logout
