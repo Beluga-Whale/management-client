@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
-import FormInputField from "../FormInput/FormInputField";
-import { render, screen, fireEvent } from "@testing-library/react";
+import FormInputField from "../FormInputField";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 

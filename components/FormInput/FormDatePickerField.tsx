@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   FormControl,
   FormDescription,
@@ -40,6 +39,8 @@ const FormDatePickerField = <T extends FieldValues>({
             <Popover>
               <PopoverTrigger asChild>
                 <Button
+                  id={name}
+                  aria-label={label}
                   variant="outline"
                   className="w-full justify-start text-left font-normal"
                 >
