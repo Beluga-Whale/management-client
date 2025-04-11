@@ -6,7 +6,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import { format } from "date-fns";
 
 const formSchema = z.object({
   dudeDate: z.date({
