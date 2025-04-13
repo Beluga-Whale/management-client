@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from "./ui/dialog";
 import FormInputField from "./FormInput/FormInputField";
 import { z } from "zod";
@@ -90,13 +91,16 @@ const DialogCreateTask = ({ btn }: DialogCreateTaskProps) => {
             variant="outline"
             className="max-w-[20.6rem]  h-[16.2rem]  border-dashed hover:bg-slate-200 hover:border-solid cursor-pointer"
           >
-            Edit Profile
+            Add New Task
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="p-3 bg-slate-50">
+      <DialogContent className="p-3 bg-slate-50" aria-describedby="dialog-desc">
         <DialogHeader>
           <DialogTitle>Create Task</DialogTitle>
+          <DialogDescription className="sr-only">
+            Form for creating a new task
+          </DialogDescription>
         </DialogHeader>
         <FormProvider {...form}>
           <form
