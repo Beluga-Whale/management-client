@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -96,6 +97,9 @@ const DialogProfile = () => {
       <DialogContent className="p-3 bg-slate-50">
         <DialogHeader>
           <DialogTitle> Profile</DialogTitle>
+          <DialogDescription className="sr-only">
+            Form for creating a new task
+          </DialogDescription>
         </DialogHeader>
         <div className="flex justify-between gap-2 ">
           <div>

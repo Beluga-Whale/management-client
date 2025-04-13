@@ -13,6 +13,10 @@ describe("DialogEditTask", () => {
     const queryClient = new QueryClient();
     const mockStore = configureStore({
       reducer: { dialog: dialogSlice },
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+          serializableCheck: false,
+        }),
       preloadedState: {
         dialog: {
           dialogEdit: true,
@@ -43,6 +47,10 @@ describe("DialogEditTask", () => {
     const queryClient = new QueryClient();
     const mockStore = configureStore({
       reducer: { dialog: dialogSlice },
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+          serializableCheck: false,
+        }),
       preloadedState: {
         dialog: {
           dialogEdit: true,
