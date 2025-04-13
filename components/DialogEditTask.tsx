@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -61,7 +62,6 @@ const DialogEditTask = () => {
         DueDate: dayjs(values.dudeDate),
         Completed: Number(values?.complete) == 1 ? true : false,
       };
-      console.log("payload", payload);
 
       await mutateEditTask({
         id: task?.ID ?? 0,
@@ -108,6 +108,9 @@ const DialogEditTask = () => {
       <DialogContent className="p-3 bg-slate-50">
         <DialogHeader>
           <DialogTitle>Edit Task</DialogTitle>
+          <DialogDescription className="sr-only">
+            Form for creating a new task
+          </DialogDescription>
         </DialogHeader>
         <FormProvider {...form}>
           <form
