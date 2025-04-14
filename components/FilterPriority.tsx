@@ -30,8 +30,6 @@ const FilterPriority = () => {
   ];
 
   const handleSelect = (item: string) => {
-    // console.log("item", item);
-    console.log("priority", priority);
     dispatch(setPriority(item)); // แก้ไขค่าสำหรับ "All"
   };
 
