@@ -28,7 +28,7 @@ const HamburgerMenu = () => {
   return (
     <Sheet>
       <SheetTrigger asChild className="sm:hidden">
-        <Menu />
+        <Menu role="button" tabIndex={0} data-testid="hamburger-icon" />
       </SheetTrigger>
       <SheetContent className="sm:hidden bg-slate-50 p-4">
         <SheetHeader>
