@@ -32,6 +32,7 @@ const Header = () => {
           href={"https://github.com/Beluga-Whale"}
           target="_blank"
           className="p-2 border-2 border-slate-200 rounded-full"
+          aria-label="GitHub"
         >
           <GitHubIcon className="text-violet-500 " />
         </Link>
@@ -39,6 +40,7 @@ const Header = () => {
           href={"https://www.facebook.com/Thanathat159/?locale=th_TH"}
           target="_blank"
           className="p-2 border-2 border-slate-200 rounded-full"
+          aria-label="FaceBook"
         >
           <FacebookIcon className="text-violet-500 " />
         </Link>
