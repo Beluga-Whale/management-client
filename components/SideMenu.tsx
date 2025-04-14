@@ -45,7 +45,9 @@ const SideMenu = () => {
         <TooltipProvider key={index}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link href={item?.path}>{item?.icon}</Link>
+              <Link href={item?.path} aria-label={item?.title}>
+                {item?.icon}
+              </Link>
             </TooltipTrigger>
             <TooltipContent>
               <p>{item?.title}</p>
