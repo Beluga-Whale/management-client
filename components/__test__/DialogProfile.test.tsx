@@ -70,7 +70,7 @@ describe("DialogProfile", () => {
     render(<DialogProfile />);
 
     const btnHello = screen.getByText(/hello, halay4/i);
-    userEvent.click(btnHello);
+    await userEvent.click(btnHello);
 
     await waitFor(() => {
       expect(screen.getByText("Profile")).toBeInTheDocument();
@@ -88,7 +88,7 @@ describe("DialogProfile", () => {
     render(<DialogProfile />);
 
     const btnHello = screen.getByText(/hello, halay4/i);
-    userEvent.click(btnHello);
+    await userEvent.click(btnHello);
 
     await waitFor(() => {
       expect(screen.getByText("Profile")).toBeInTheDocument();
@@ -97,7 +97,7 @@ describe("DialogProfile", () => {
 
     const closeBtn = screen.getByRole("button", { name: /close/i });
 
-    userEvent.click(closeBtn);
+    await userEvent.click(closeBtn);
 
     await waitFor(() => {
       expect(screen.queryByText("Profile")).not.toBeInTheDocument();
