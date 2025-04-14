@@ -23,7 +23,7 @@ const RenderWithProvider = (children: React.ReactNode) => {
   );
 };
 
-describe.only("DialogCreateTask", () => {
+describe("DialogCreateTask", () => {
   it("should render button Add New task True", () => {
     RenderWithProvider(<DialogCreateTask btn={true} />);
     expect(

@@ -6,7 +6,7 @@ import dialogReduce, {
 import "@testing-library/jest-dom";
 import dayjs from "dayjs";
 
-describe.only("dialogSlice", () => {
+describe("dialogSlice", () => {
   it("should return the initial state", () => {
     // NOTE - สร้าง action ปลอมๆที่ไม่มีอยู่ใน reducer เพื่อให้มันไม่รู้จัก
     const unkownAction = createAction("unknown");
@@ -38,10 +38,10 @@ describe.only("dialogSlice", () => {
       previousState,
       setDialogEditTask({
         ID: 1,
-        CreatedAt: dayjs(new Date()),
-        UpdatedAt: dayjs(new Date()),
-        DeletedAt: dayjs(new Date()),
-        DueDate: dayjs(new Date()),
+        CreatedAt: dayjs(new Date("2018-04-04T16:00:00.000Z")),
+        UpdatedAt: dayjs(new Date("2018-04-04T16:00:00.000Z")),
+        DeletedAt: dayjs(new Date("2018-04-04T16:00:00.000Z")),
+        DueDate: dayjs(new Date("2018-04-04T16:00:00.000Z")),
         Title: "TitleMock",
         Description: "DescriptionMock",
         Status: "active",
@@ -53,10 +53,10 @@ describe.only("dialogSlice", () => {
       dialogEdit: false,
       task: {
         ID: 1,
-        CreatedAt: dayjs(new Date()),
-        UpdatedAt: dayjs(new Date()),
-        DeletedAt: dayjs(new Date()),
-        DueDate: dayjs(new Date()),
+        CreatedAt: dayjs(new Date("2018-04-04T16:00:00.000Z")),
+        UpdatedAt: dayjs(new Date("2018-04-04T16:00:00.000Z")),
+        DeletedAt: dayjs(new Date("2018-04-04T16:00:00.000Z")),
+        DueDate: dayjs(new Date("2018-04-04T16:00:00.000Z")),
         Title: "TitleMock",
         Description: "DescriptionMock",
         Status: "active",

@@ -7,7 +7,7 @@ jest.mock("@/services/taskServices", () => ({
   useGetAllTasks: jest.fn(),
 }));
 
-describe.only("StatusTotalMenu", () => {
+describe("StatusTotalMenu", () => {
   it("shoud render loading state", () => {
     (useGetAllTasks as jest.Mock).mockReturnValue({
       data: null,
