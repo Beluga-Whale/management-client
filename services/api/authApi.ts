@@ -10,7 +10,6 @@ export const login = async (data: Login) => {
 
     return result.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -22,7 +21,6 @@ export const register = async (data: Register) => {
     });
     return result.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -34,7 +32,6 @@ export const logout = async () => {
     });
     return result.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -46,7 +43,6 @@ export const getProfile = async (): Promise<UserDto> => {
     });
     return result.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -61,7 +57,6 @@ export const updateUser = async (
     });
     return result.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };

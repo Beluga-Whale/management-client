@@ -10,7 +10,6 @@ export const getAllTasks = async (priority: string): Promise<TasksAllDto> => {
 
     return result.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -22,7 +21,6 @@ export const createTask = async (body: CreateTaskDto) => {
     });
     return result?.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -34,7 +32,6 @@ export const editTask = async (id: number, body: CreateTaskDto) => {
     });
     return result?.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -46,7 +43,6 @@ export const deleteTask = async (id: number) => {
     });
     return result?.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -64,7 +60,6 @@ export const getCompleteTasks = async (
 
     return result.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -82,7 +77,6 @@ export const getPendingTasks = async (
 
     return result.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
@@ -100,7 +94,6 @@ export const getOverdueTasks = async (
 
     return result.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
