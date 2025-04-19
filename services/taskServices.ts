@@ -9,10 +9,10 @@ import {
   getPendingTasks,
 } from "./api/taskApi";
 import { CreateTaskDto } from "@/types";
-const getTasksQueryKey = "getTasksQueryKey";
-const getTasksCompleteQueryKey = "getTasksCompleteQueryKey";
-const getTasksPendingQueryKey = "getTasksPendingQueryKey";
-const getTasksOverdueQueryKey = "getTasksOverdueQueryKey";
+export const getTasksQueryKey = "getTasksQueryKey";
+export const getTasksCompleteQueryKey = "getTasksCompleteQueryKey";
+export const getTasksPendingQueryKey = "getTasksPendingQueryKey";
+export const getTasksOverdueQueryKey = "getTasksOverdueQueryKey";
 
 export const useGetAllTasks = (priority?: string) => {
   return useQuery({
@@ -30,7 +30,7 @@ export const useCreateTask = () => {
       queryClient.invalidateQueries({ queryKey: [getTasksQueryKey] });
     },
     onError: (error: Error) => {
-      console.error("Register Failed:", error.message);
+      console.error("Create Task Failed:", error.message);
     },
   });
 };
@@ -79,7 +79,7 @@ export const useDeleteTask = () => {
       });
     },
     onError: (error: Error) => {
-      console.error("Register Failed:", error.message);
+      console.error("Delete Failed:", error.message);
     },
   });
 };
