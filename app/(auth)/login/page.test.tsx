@@ -28,7 +28,6 @@ jest.mock("react-toastify", () => ({
   },
 }));
 
-// ✅ import useLogin เพื่อใช้ใน test
 import { useLogin } from "@/services/authServices";
 
 const RenderWrapper = (children: React.ReactNode) => {
@@ -85,5 +84,22 @@ describe("Login Page Integration Test", () => {
         screen.getByText("Invalid email format. Please enter a valid email.")
       ).toBeInTheDocument();
     });
+  });
+
+  it("should show click to navigate to register page", async () => {
+    RenderWrapper(<LoginPage />);
+
+    const registerLink = screen.getByRole("link", { name: /register/i });
+
+    expect(registerLink).toBeInTheDocument();
+
+    await userEvent.click(registerLink);
+
+    await waitFor(() => {
+      expect(registerLink).toHaveAttribute("href", "/register");
+    });
+
+    expect(registerLink).toHaveClass("text-violet-500");
+    expect(registerLink).toHaveClass("font-bold");
   });
 });
