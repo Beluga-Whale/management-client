@@ -21,13 +21,6 @@ jest.mock("@/services/authServices", () => {
   };
 });
 
-jest.mock("react-toastify", () => ({
-  toast: {
-    success: jest.fn(),
-    error: jest.fn(),
-  },
-}));
-
 import { useLogin } from "@/services/authServices";
 
 const RenderWrapper = (children: React.ReactNode) => {
