@@ -78,6 +78,8 @@ const CardTask = ({ task }: CardTaskProps) => {
               <Trash2
                 className="text-red-500 cursor-pointer"
                 size={24}
+                data-testid="Delete task"
+                aria-label={`Delete task`}
                 onClick={() => handleDelete()}
               />
             </div>
