@@ -56,7 +56,7 @@ const LoginPage = () => {
             Login to Your Account
           </CardTitle>
           <CardDescription className="text-center text-slate-500 ">
-            Login Now. Don't have an account?{" "}
+            Login Now. Don&apos;t have an account?
             <span>
               <Link href="/register" className="text-violet-500 font-bold">
                 Register

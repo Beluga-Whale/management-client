@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import TaskOverduePage from "./page";
 import { useDeleteTask, useGetOverdueTasks } from "@/services/taskServices";
 import userEvent from "@testing-library/user-event";
+import Swal from "sweetalert2";
 
 jest.mock("sweetalert2", () => ({
   fire: jest.fn().mockResolvedValue({ isConfirmed: true }),
@@ -133,7 +134,6 @@ describe("Overdue Page Integration test", () => {
   });
 
   it("should delete task", async () => {
-    const { fire } = require("sweetalert2"); // Import the mocked version
     (useGetOverdueTasks as jest.Mock).mockReturnValue({
       data: {
         message: [
@@ -161,9 +161,13 @@ describe("Overdue Page Integration test", () => {
     const deleteButtons = screen.getAllByTestId("Delete task");
     await userEvent.click(deleteButtons[0]);
 
-    fire("Test title", "Test message", "success");
+    Swal.fire("Test title", "Test message", "success");
 
-    expect(fire).toHaveBeenCalledWith("Test title", "Test message", "success");
+    expect(Swal.fire).toHaveBeenCalledWith(
+      "Test title",
+      "Test message",
+      "success"
+    );
 
     await waitFor(() => {
       expect(mutateAsyncMock).toHaveBeenCalledWith(33);

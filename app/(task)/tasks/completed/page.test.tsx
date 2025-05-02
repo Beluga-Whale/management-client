@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useDeleteTask, useGetCompleteTasks } from "@/services/taskServices";
@@ -8,7 +8,7 @@ import filterSlice from "@/app/lib/feature/filter/filterSlice";
 import dialogSlice from "@/app/lib/feature/dialog/dialogSlice";
 import { Provider } from "react-redux";
 import userEvent from "@testing-library/user-event";
-import { useServerInsertedHTML } from "next/navigation";
+import Swal from "sweetalert2";
 
 jest.mock("sweetalert2", () => ({
   fire: jest.fn().mockResolvedValue({ isConfirmed: true }),
@@ -134,7 +134,6 @@ describe("Completed Page Integration test", () => {
   });
 
   it("should delete task", async () => {
-    const { fire } = require("sweetalert2"); // Import the mocked version
     (useGetCompleteTasks as jest.Mock).mockReturnValue({
       data: {
         message: [
@@ -163,9 +162,13 @@ describe("Completed Page Integration test", () => {
     const deleteButtons = screen.getAllByTestId("Delete task");
     await userEvent.click(deleteButtons[0]);
 
-    fire("Test title", "Test message", "success");
+    Swal.fire("Test title", "Test message", "success");
 
-    expect(fire).toHaveBeenCalledWith("Test title", "Test message", "success");
+    expect(Swal.fire).toHaveBeenCalledWith(
+      "Test title",
+      "Test message",
+      "success"
+    );
 
     await waitFor(() => {
       expect(mutateAsyncMock).toHaveBeenCalledWith(33);

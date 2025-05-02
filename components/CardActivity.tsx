@@ -21,18 +21,20 @@ const CardActivity = () => {
 
   const taskNotComplete = taskData?.message?.filter((item) => !item.Completed);
   const taskComplete = taskData?.message?.filter((item) => item.Completed);
-  const chartData = [
-    {
-      browser: "complete",
-      tasks: taskComplete?.length ?? 0,
-      fill: "var(--color-complete)",
-    },
-    {
-      browser: "pending",
-      tasks: taskNotComplete?.length ?? 0,
-      fill: "var(--color-pending)",
-    },
-  ];
+  const chartData = useMemo(() => {
+    return [
+      {
+        browser: "complete",
+        tasks: taskComplete?.length ?? 0,
+        fill: "var(--color-complete)",
+      },
+      {
+        browser: "pending",
+        tasks: taskNotComplete?.length ?? 0,
+        fill: "var(--color-pending)",
+      },
+    ];
+  }, [taskComplete, taskNotComplete]);
   const chartConfig = {
     tasks: {
       label: "Tasks",
@@ -49,7 +51,7 @@ const CardActivity = () => {
 
   const totalTasks = useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.tasks, 0);
-  }, [taskNotComplete, taskComplete]);
+  }, [chartData]);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching</p>;
