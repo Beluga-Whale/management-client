@@ -9,10 +9,11 @@ const mockPush = jest.fn();
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: mockPush,
+    replace: jest.fn(),
   }),
 }));
 
-// ✅ mock useLogin แบบไม่ทำให้เกิด hoisting error
+// ✅ mock useLogin
 jest.mock("@/services/authServices", () => {
   const actual = jest.requireActual("@/services/authServices");
   return {
