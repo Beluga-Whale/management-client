@@ -36,7 +36,7 @@ jobs:
       # สร้าง Docker Image
       - name: Build Docker image front-app
         run: |
-          docker build Dockerfile.prod -t front-app .
+          docker build ./Dockerfile.prod -t front-app .
 
       # Push Docker image ไปที่ Docker Hub (ถ้าต้องการ)
       - name: Push Docker image
