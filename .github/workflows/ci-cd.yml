@@ -26,6 +26,7 @@ jobs:
       # ติดตั้ง dependencies
       - name: Install dependencies
         run: npm install --legacy-peer-deps
+        run: npm install lightningcss@latest --legacy-peer-deps
 
       # รัน Unit Tests และ Integration Tests
       - name: Run tests
