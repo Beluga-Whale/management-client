@@ -1,0 +1,49 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main # หรือสาขาหลักของโปรเจกต์
+  pull_request:
+    branches:
+      - main # จะทำงานเมื่อมีการเปิด PR ไปที่สาขาหลัก
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # เช็คเอาท์โค้ดจาก GitHub
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # ตั้งค่า Node.js เวอร์ชันที่ต้องการ
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "22" # ใช้ Node.js เวอร์ชันที่ต้องการ
+
+      # ติดตั้ง dependencies
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      # รัน Unit Tests และ Integration Tests
+      - name: Run tests
+        run: npm run test # ใช้คำสั่งที่คุณใช้รัน tests
+
+      # สร้าง Docker Image
+      - name: Build Docker image front-app
+        run: |
+          docker build -t front-app .
+
+      # Push Docker image ไปที่ Docker Hub (ถ้าต้องการ)
+      - name: Push Docker image
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker tag front-app ${{ secrets.DOCKER_USERNAME }}/front-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/front-app:tagname
+
+      # # Deploy to Vercel (ถ้าต้องการ deploy ไป Vercel)
+      # - name: Deploy to Vercel
+      #   run: |
+      #     vercel --prod --token $VERCEL_TOKEN
