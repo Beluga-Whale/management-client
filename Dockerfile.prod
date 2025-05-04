@@ -5,7 +5,6 @@ RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
 # Copy files to the container
-COPY prisma/ /app/prisma/
 COPY package.json package-lock.json\* ./
 
 # Install dependencies
