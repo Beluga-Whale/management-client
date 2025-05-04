@@ -19,12 +19,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN \
-  if [ -f yarn.lock ]; then yarn run build; \
-  elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN npm run build
 
 # ตรวจสอบว่า .next/standalone มีไฟล์และโฟลเดอร์ที่คาดหวังหรือไม่
 RUN ls -alh /app/.next/standalone
