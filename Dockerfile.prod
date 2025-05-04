@@ -5,7 +5,7 @@ WORKDIR /app
 
 # 2. Install dependencies
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
-RUN npm install -g npm@latest # อัปเดต npm ให้เป็นเวอร์ชันล่าสุด
+RUN npm install -g npm@latest
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci --legacy-peer-deps; \
@@ -19,7 +19,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm run build
+RUN npm run build  # สร้างโปรเจกต์ใน CI/CD
 
 # ตรวจสอบว่า .next/standalone มีไฟล์และโฟลเดอร์ที่คาดหวังหรือไม่
 RUN ls -alh /app/.next/standalone
@@ -44,4 +44,4 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["node", ".next/standalone/server.js"]
+CMD ["next", "start", "-p", "3000"]
