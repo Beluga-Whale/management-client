@@ -26,6 +26,9 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
+# ตรวจสอบว่า public โฟลเดอร์มีอยู่หลังจาก build หรือไม่
+RUN ls -alh /app/public
+
 # 4. Runner stage
 FROM base AS runner
 WORKDIR /app
@@ -36,6 +39,10 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# ตรวจสอบว่าโฟลเดอร์ .next/standalone มีไฟล์และโฟลเดอร์ที่คาดหวังหรือไม่
+RUN ls -alh /app/.next/standalone
+
+# คัดลอกไฟล์จาก builder stage
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./standalone
 COPY --from=builder /app/.next/static ./static
