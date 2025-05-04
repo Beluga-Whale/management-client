@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install --legacy-peer-deps
-          npm install lightningcss@latest --legacy-peer-deps
+          # ติดตั้ง dependencies อื่นๆ ถ้าจำเป็น
 
       # รัน Unit Tests และ Integration Tests
       - name: Run tests
@@ -42,9 +42,10 @@ jobs:
       - name: Push Docker image
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker tag front-app ${{ secrets.DOCKER_USERNAME }}/front-app:latest  # ใช้ latest แทน tagname
-          docker push ${{ secrets.DOCKER_USERNAME }}/front-app:latest  # ใช้ latest แทน tagname
-      # # Deploy to Vercel (ถ้าต้องการ deploy ไป Vercel)
+          docker tag front-app ${{ secrets.DOCKER_USERNAME }}/front-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/front-app:latest
+
+      # Deploy to Vercel (ถ้าต้องการ deploy ไป Vercel)
       # - name: Deploy to Vercel
       #   run: |
       #     vercel --prod --token $VERCEL_TOKEN
