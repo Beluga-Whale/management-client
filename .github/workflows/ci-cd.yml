@@ -2,50 +2,51 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - main # หรือสาขาหลักของโปรเจกต์
+    branches: [main]
   pull_request:
-    branches:
-      - main # จะทำงานเมื่อมีการเปิด PR ไปที่สาขาหลัก
+    branches: [main]
 
 jobs:
-  build:
+  build-test-docker:
     runs-on: ubuntu-latest
 
     steps:
-      # เช็คเอาท์โค้ดจาก GitHub
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # ✅ Checkout repo
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
 
-      # ตั้งค่า Node.js เวอร์ชันที่ต้องการ
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      # ✅ Setup Node.js
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: "22" # ใช้ Node.js เวอร์ชันที่ต้องการ
+          node-version: "18" # Use Node 18 (recommended for Next.js 15)
 
-      # ติดตั้ง dependencies
-      - name: Install dependencies
-        run: |
-          npm install --legacy-peer-deps
-          # ติดตั้ง dependencies อื่นๆ ถ้าจำเป็น
+      # ✅ Install dependencies
+      - name: 📦 Install dependencies
+        run: npm ci # safer than `npm install` for CI
 
-      # รัน Unit Tests และ Integration Tests
-      - name: Run tests
-        run: npm run test # ใช้คำสั่งที่คุณใช้รัน tests
+      # ✅ Run tests
+      - name: 🧪 Run tests
+        run: npm run test
 
-      # สร้าง Docker Image
-      - name: Build Docker image front-app
+      # ✅ Run lint (optional)
+      - name: 🧹 Run linter
+        run: npm run lint
+
+      # ✅ Build Next.js app (required for Docker)
+      - name: 🏗️ Build Next.js
+        run: npm run build
+
+      # ✅ Build Docker image
+      - name: 🐳 Build Docker image
         run: |
           docker build -f Dockerfile.prod -t front-app .
 
-      # Push Docker image ไปที่ Docker Hub (ถ้าต้องการ)
-      - name: Push Docker image
+      # ✅ Push Docker image to Docker Hub
+      - name: 🔐 Login to DockerHub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: 📤 Push Docker image
         run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker tag front-app ${{ secrets.DOCKER_USERNAME }}/front-app:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/front-app:latest
-
-      # Deploy to Vercel (ถ้าต้องการ deploy ไป Vercel)
-      # - name: Deploy to Vercel
-      #   run: |
-      #     vercel --prod --token $VERCEL_TOKEN
