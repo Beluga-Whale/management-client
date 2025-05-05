@@ -1,0 +1,35 @@
+# Node modules (installed inside Docker)
+node_modules
+
+# Logs and debug
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Output directories
+.next
+out
+
+# Git and env files
+.git
+.gitignore
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+.vscode
+.idea
+
+# Test & coverage
+coverage
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+jest.config.*
+
+# Docker itself (optional)
+Dockerfile*
+docker-compose*

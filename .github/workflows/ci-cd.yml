@@ -22,8 +22,8 @@ jobs:
           node-version: "18" # Use Node 18 (recommended for Next.js 15)
 
       # ✅ Install dependencies
-      - name: 📦 Install dependencies
-        run: npm ci # safer than `npm install` for CI
+      - name: Install deps ignoring peer conflicts
+        run: npm install --legacy-peer-deps
 
       # ✅ Run tests
       - name: 🧪 Run tests
