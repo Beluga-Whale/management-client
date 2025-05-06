@@ -42,7 +42,7 @@ jobs:
         run: |
           docker build \
             -f Dockerfile.prod \
-            --build-arg NEXT_PUBLIC_PORT=http://server:8080/api \
+            --build-arg NEXT_PUBLIC_PORT=http://server:8081/api \
             -t front-app .
 
       # ✅ Push Docker image to Docker Hub
