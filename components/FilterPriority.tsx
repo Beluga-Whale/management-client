@@ -9,7 +9,6 @@ const FilterPriority = () => {
 
   const dispatch = useAppDispatch();
   // const priorityList = ["All", "Low", "Medium", "High"];
-
   const priorityList = [
     {
       label: "All",
