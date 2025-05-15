@@ -53,7 +53,7 @@ const LoginPage = () => {
       <Card className="login-container bg-slate-50">
         <CardHeader>
           <CardTitle className="text-center text-xl">
-            Login to Your Account TEST
+            Login to Your Account
           </CardTitle>
           <CardDescription className="text-center text-slate-500 ">
             Login Now. Don&apos;t have an account?
