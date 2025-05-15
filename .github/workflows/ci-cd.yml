@@ -65,10 +65,10 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/front-app:latest
-            docker stop taskmanage-frontend || true
-            docker rm taskmanage-frontend || true
-            docker run -d \
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/front-app:latest
+            sudo docker stop taskmanage-frontend || true
+            sudo docker rm taskmanage-frontend || true
+            sudo docker run -d \
               --name taskmanage-frontend \
               -p 80:3000 \
               --restart unless-stopped \
