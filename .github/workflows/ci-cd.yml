@@ -53,3 +53,23 @@ jobs:
         run: |
           docker tag front-app ${{ secrets.DOCKER_USERNAME }}/front-app:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/front-app:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-test-docker # ✅ job นี้จะรอ job ข้างบนเสร็จก่อน
+    steps:
+      - name: 📦 SSH & Deploy Docker Container on EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/front-app:latest
+            docker stop taskmanage-frontend || true
+            docker rm taskmanage-frontend || true
+            docker run -d \
+              --name taskmanage-frontend \
+              -p 80:3000 \
+              --restart unless-stopped \
+              ${{ secrets.DOCKER_USERNAME }}/front-app:latest
