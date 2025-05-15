@@ -64,7 +64,7 @@ describe("DialogCreateTask", () => {
     expect(screen.getByText("Title")).toBeInTheDocument();
     expect(screen.getByText("Description")).toBeInTheDocument();
     expect(screen.getByText("Select Priority")).toBeInTheDocument();
-    expect(screen.getByText("Select Due Date")).toBeInTheDocument();
+    expect(screen.getByText("Select Dead Line")).toBeInTheDocument();
     expect(screen.getByText("Task Completed")).toBeInTheDocument();
   });
 });

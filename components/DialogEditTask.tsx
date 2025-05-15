@@ -145,8 +145,8 @@ const DialogEditTask = () => {
             <FormDatePickerField
               control={form.control}
               name="dudeDate"
-              label="Select Due Date"
-              description="Choose the due date for the task."
+              label="Select Dead Line"
+              description="Choose the dead line for the task."
             />
             <FormSelectField
               control={form.control}
